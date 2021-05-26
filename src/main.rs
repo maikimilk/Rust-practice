@@ -17,6 +17,11 @@ fn main() {
         .read_line(&mut guess)
         .expect("読み込み失敗");
 
+        let guess:u32 = guess
+        .trim()
+        .parse()
+        .expect("数を入力してください。");
+
     println!("入力値: {}", guess);
 
     match guess.cmp(&secret_number){
