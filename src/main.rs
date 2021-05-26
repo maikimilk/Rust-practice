@@ -7,26 +7,30 @@ fn main() {
 
     let secret_number = rand::thread_rng().gen_range(1..101);
 
-    println!("シークレットナンバーはこれ: {}", secret_number);
+    loop {
 
-    println!("どの数だとおもう？ = ");
+        println!("どの数だとおもう？ = ");
 
-    let mut guess = String::new();
+        let mut guess = String::new();
 
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("読み込み失敗");
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("読み込み失敗");
 
-        let guess:u32 = guess
-        .trim()
-        .parse()
-        .expect("数を入力してください。");
+        let guess:u32 = match guess.trim().parse(){
+            Ok(num) => num,
+            Err(_)=> continue,
+        };
 
-    println!("入力値: {}", guess);
+        println!("入力値: {}", guess);
 
-    match guess.cmp(&secret_number){
-        Ordering::Less => println!("小さすぎです。"),
-        Ordering::Greater => println!("大きすぎです。"),
-        Ordering::Equal => println!("正解です。")
+        match guess.cmp(&secret_number){
+            Ordering::Less => println!("小さすぎです。"),
+            Ordering::Greater => println!("大きすぎです。"),
+            Ordering::Equal => {
+                println!("正解です。");
+                break;
+            }
+        }
     }
 }
