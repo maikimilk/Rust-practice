@@ -1,5 +1,6 @@
 use std::io;
 use rand::Rng;
+use std::cmp::Ordering;
 
 fn main() {
     println!("数当てゲーム");
@@ -17,4 +18,10 @@ fn main() {
         .expect("読み込み失敗");
 
     println!("入力値: {}", guess);
+
+    match guess.cmp(&secret_number){
+        Ordering::Less => println!("小さすぎです。"),
+        Ordering::Greater => println!("大きすぎです。"),
+        Ordering::Equal => println!("正解です。")
+    }
 }
